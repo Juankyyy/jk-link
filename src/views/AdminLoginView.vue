@@ -6,20 +6,27 @@ import ThemeToggle from '@/components/ThemeToggle.vue'
 import { signInAdmin } from '@/lib/adminAuth'
 
 const router = useRouter()
-const accessKey = ref('')
+const username = ref('')
+const password = ref('')
 const errorMessage = ref('')
+const isSubmitting = ref(false)
 
-function handleSubmit() {
+async function handleSubmit() {
   errorMessage.value = ''
+  isSubmitting.value = true
 
-  const isValid = signInAdmin(accessKey.value.trim())
+  try {
+    await signInAdmin({
+      username: username.value.trim(),
+      password: password.value,
+    })
 
-  if (!isValid) {
-    errorMessage.value = 'Clave incorrecta. Intenta de nuevo.'
-    return
+    router.replace({ name: 'admin' })
+  } catch (error) {
+    errorMessage.value = error.message || 'No se pudo iniciar sesion.'
+  } finally {
+    isSubmitting.value = false
   }
-
-  router.replace({ name: 'admin' })
 }
 </script>
 
@@ -32,30 +39,38 @@ function handleSubmit() {
     <section
       class="mx-auto w-full max-w-md rounded-xl border border-border bg-card p-6 text-card-foreground shadow-lg"
     >
-      <h1 class="text-2xl font-semibold">Acceso administrador</h1>
+      <h1 class="text-2xl font-semibold">Admin Login</h1>
       <p class="mt-2 text-sm text-muted-foreground">
-        Ingresa tu clave para acceder al panel de administración de links.
+        Login with your administrator username to access the links panel.
       </p>
-
-      <!-- <p
-        v-if="USING_DEFAULT_ADMIN_KEY"
-        class="mt-3 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700"
-      >
-        No detecté VITE_ADMIN_ACCESS_KEY.
-      </p> -->
 
       <form class="mt-6 space-y-4" @submit.prevent="handleSubmit">
         <div>
-          <label class="mb-1 block text-sm font-medium text-foreground" for="accessKey">
-            Clave de acceso
+          <label class="mb-1 block text-sm font-medium text-foreground" for="username">
+            Username
           </label>
           <input
-            id="accessKey"
-            v-model="accessKey"
+            id="username"
+            v-model="username"
+            type="text"
+            autocomplete="username"
+            class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring/30 transition focus:ring-2"
+            placeholder=""
+            required
+          />
+        </div>
+
+        <div>
+          <label class="mb-1 block text-sm font-medium text-foreground" for="password">
+            Password
+          </label>
+          <input
+            id="password"
+            v-model="password"
             type="password"
             autocomplete="current-password"
             class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring/30 transition focus:ring-2"
-            placeholder="Tu clave privada"
+            placeholder=""
             required
           />
         </div>
@@ -67,7 +82,9 @@ function handleSubmit() {
           {{ errorMessage }}
         </p>
 
-        <Button class="w-full" type="submit">Entrar al panel</Button>
+        <Button class="w-full" type="submit" :disabled="isSubmitting">
+          {{ isSubmitting ? 'Ingresando...' : 'Entrar al panel' }}
+        </Button>
       </form>
     </section>
   </main>

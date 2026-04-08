@@ -1,7 +1,9 @@
-const API_BASE_URL =
+const RAW_API_BASE_URL =
   (import.meta.env.PROD
     ? import.meta.env.VITE_API_BASE_URL_PROD
     : import.meta.env.VITE_API_BASE_URL_DEV) || 'http://localhost:8787'
+
+const API_BASE_URL = String(RAW_API_BASE_URL).replace(/\/+$/, '')
 
 function normalizeDestinationUrl(url) {
   const trimmedUrl = String(url || '').trim()
@@ -20,6 +22,7 @@ function normalizeDestinationUrl(url) {
 async function apiRequest(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       ...options.headers,

@@ -43,6 +43,65 @@ The current version already allows you to create, edit, list, and delete links f
 - Tailwind CSS
 - Bun
 
+## Auth Contract (Frontend <-> Backend)
+
+The admin frontend now uses backend authentication with cookies and role validation.
+
+### Endpoints expected by the frontend
+
+1. `POST /api/auth/login`
+- Request body:
+```json
+{
+	"username": "admin_user",
+	"password": "plain-password"
+}
+```
+- Success response (`200`):
+```json
+{
+	"user": {
+		"id": "uuid-or-number",
+		"username": "admin_user",
+		"role": "admin"
+	}
+}
+```
+- The backend must create/set the auth session cookie.
+
+2. `GET /api/auth/me`
+- Success response (`200`):
+```json
+{
+	"user": {
+		"id": "uuid-or-number",
+		"username": "admin_user",
+		"role": "admin"
+	}
+}
+```
+- If session is invalid/expired, return `401`.
+
+3. `POST /api/auth/logout`
+- Success response: `200` or `204`.
+- The backend must clear the auth session cookie.
+
+### Role requirement
+
+- Admin panel access requires `role === "admin"`.
+- Any authenticated user with another role must be rejected (`403`) for admin access.
+
+## Users Table Proposal
+
+Recommended fields:
+
+- `id`
+- `username` (unique)
+- `password` (store bcrypt hash, never plain text)
+- `role` (`user` | `admin`)
+- `created_at`
+- `updated_at`
+
 <!-- ## Run the project locally
 
 ### Requirements

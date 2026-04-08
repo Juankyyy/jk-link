@@ -94,8 +94,8 @@ async function deleteItem(link) {
   await linksStore.removeLink(link.name)
 }
 
-function logout() {
-  signOutAdmin()
+async function logout() {
+  await signOutAdmin()
   router.replace({ name: 'admin-login' })
 }
 
@@ -125,16 +125,16 @@ function toShortLink(name) {
         class="animate-in fade-in slide-in-from-top-2 flex flex-col gap-4 rounded-xl border border-border bg-card p-5 text-card-foreground shadow-sm sm:flex-row sm:items-center sm:justify-between"
       >
         <div>
-          <h1 class="text-2xl font-semibold">Administración de links</h1>
+          <h1 class="text-2xl font-semibold">Link Management</h1>
           <p class="mt-1 text-sm text-muted-foreground">
-            Gestiona todos los links acortados desde este panel.
+            Manage all your shortened links from this dashboard.
           </p>
         </div>
 
         <div class="flex flex-wrap gap-2">
           <ThemeToggle />
-          <Button class="transition-none!" @click="openCreateModal">Nuevo link</Button>
-          <Button variant="destructive" @click="logout">Salir</Button>
+          <Button class="transition-none!" @click="openCreateModal">New Link</Button>
+          <Button variant="destructive" @click="logout">Logout</Button>
         </div>
       </header>
 
@@ -145,10 +145,12 @@ function toShortLink(name) {
         {{ errorMessage }}
       </p>
 
-      <section class="animate-in fade-in slide-in-from-bottom-2 mt-4 overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+      <section
+        class="animate-in fade-in slide-in-from-bottom-2 mt-4 overflow-hidden rounded-xl border border-border bg-card shadow-sm"
+      >
         <div class="flex items-center justify-between border-b border-border px-4 py-3">
           <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            Lista de links
+            List of links
           </p>
 
           <Button
@@ -158,16 +160,16 @@ function toShortLink(name) {
             :disabled="isLoading || isSaving"
           >
             <RefreshCw class="size-4" :class="isLoading ? 'animate-spin' : ''" />
-            <span class="sr-only">Recargar links</span>
+            <span class="sr-only">Reload Links</span>
           </Button>
         </div>
 
         <div v-if="isLoading" class="px-4 py-8 text-center text-sm text-muted-foreground">
-          Cargando links...
+          Loading links...
         </div>
 
         <div v-else-if="!links.length" class="px-4 py-8 text-center text-sm text-muted-foreground">
-          Aún no hay links creados.
+          No links have been created yet
         </div>
 
         <div v-else class="overflow-x-auto">
@@ -177,17 +179,17 @@ function toShortLink(name) {
                 <th
                   class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                 >
-                  Nombre
+                  Name
                 </th>
                 <th
                   class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                 >
-                  Destino
+                  URL
                 </th>
                 <th
                   class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                 >
-                  Acciones
+                  Actions
                 </th>
               </tr>
             </thead>
@@ -217,7 +219,7 @@ function toShortLink(name) {
                   <div class="flex justify-end gap-2">
                     <Button size="sm" variant="outline" @click="openEditModal(link)">Editar</Button>
                     <Button size="sm" variant="destructive" @click="deleteItem(link)"
-                      >Eliminar</Button
+                      >Delete</Button
                     >
                   </div>
                 </td>
@@ -233,27 +235,29 @@ function toShortLink(name) {
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm"
       @click.self="closeModal"
     >
-      <section class="animate-in fade-in zoom-in-95 w-full max-w-lg rounded-xl border border-border bg-card p-5 text-card-foreground shadow-xl duration-300">
+      <section
+        class="animate-in fade-in zoom-in-95 w-full max-w-lg rounded-xl border border-border bg-card p-5 text-card-foreground shadow-xl duration-300"
+      >
         <h2 class="text-lg font-semibold">{{ modalTitle }}</h2>
 
         <form class="mt-4 space-y-4" @submit.prevent="submitModal">
           <div>
             <label class="mb-1 block text-sm font-medium text-foreground" for="link-name"
-              >Nombre del link</label
+              >Link name</label
             >
             <input
               id="link-name"
               v-model="form.name"
               type="text"
               class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring/30 transition focus:ring-2"
-              placeholder="por-ejemplo-promocion"
+              placeholder=""
               required
             />
           </div>
 
           <div>
             <label class="mb-1 block text-sm font-medium text-foreground" for="link-url"
-              >URL destino</label
+              >Destination URL</label
             >
             <input
               id="link-url"

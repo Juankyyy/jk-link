@@ -35,8 +35,14 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to) => {
-  const hasAccess = isAdminAuthenticated()
+router.beforeEach(async (to) => {
+  let hasAccess = false
+
+  try {
+    hasAccess = await isAdminAuthenticated()
+  } catch {
+    hasAccess = false
+  }
 
   if (to.meta.requiresAdmin && !hasAccess) {
     return { name: 'admin-login' }
