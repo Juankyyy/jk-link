@@ -3,27 +3,29 @@
     {
       "source": "/api/:path*",
       "destination": "https://jk-link-backend.jkx.workers.dev/api/:path*"
+    },
     {
-      "rewrites": [
-        {
-          "source": "/api/:path*",
-          "destination": "https://jk-link-backend.jkx.workers.dev/api/:path*"
-        },
-        {
-          "source": "/admin/:path*",
-          "destination": "/index.html"
-        },
-        {
-          "source": "/:code((?!api|admin|assets|favicon.ico|robots.txt|sitemap.xml|.*\\..*).+)",
-          "destination": "https://jk-link-backend.jkx.workers.dev/:code"
-        },
-        {
-          "source": "/:path*",
-          "destination": "/index.html"
-        }
-      ]
-    }
-      "source": "/:code((?!api|admin|assets|favicon.ico|robots.txt|sitemap.xml|.*\\..*).+)",
+      "source": "/admin/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon.ico"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/:code",
       "destination": "https://jk-link-backend.jkx.workers.dev/:code"
     },
     {
