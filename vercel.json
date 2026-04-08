@@ -5,6 +5,10 @@
       "destination": "https://jk-link-backend.jkx.workers.dev/api/:path*"
     },
     {
+      "source": "/go/:code",
+      "destination": "https://jk-link-backend.jkx.workers.dev/:code"
+    },
+    {
       "source": "/admin/:path*",
       "destination": "/index.html"
     },
