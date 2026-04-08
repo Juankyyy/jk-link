@@ -25,10 +25,6 @@
       "destination": "/sitemap.xml"
     },
     {
-      "source": "/:code",
-      "destination": "https://jk-link-backend.jkx.workers.dev/:code"
-    },
-    {
       "source": "/:path*",
       "destination": "/index.html"
     }
