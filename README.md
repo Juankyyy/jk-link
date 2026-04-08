@@ -1,8 +1,39 @@
 # JK-Link
 
-Acortador de enlaces
+Haz tus enlaces más cortos, limpios y fáciles de compartir.
 
-Convierte un link largo en uno corto y fácil de
+JK-Link es una plataforma de acortamiento pensada para creadores, marcas, comunidades y cualquier persona que quiera compartir links con mejor presencia.
+
+## Que ofrece la plataforma
+
+- Links cortos memorables con nombres personalizados.
+- Gestión simple desde una interfaz web clara y rápida.
+- Edición y eliminación de enlaces en segundos.
+- Experiencia optimizada para organizar campañas, contenido y recursos.
+
+## Para quien es
+
+- Creadores de contenido que publican en redes todo el tiempo.
+- Comunidades que comparten recursos, docs o invitaciones.
+- Negocios que quieren enlaces consistentes para marketing.
+- Equipos que necesitan control sobre sus links en un solo lugar.
+
+## Casos de uso
+
+- Reemplazar URLs largas por enlaces cortos y profesionales.
+- Crear enlaces para promociones temporales.
+- Actualizar destinos sin perder claridad en lo que compartes.
+
+## Por que JK-Link
+
+- Menos ruido visual en cada publicación.
+- Mejor recordación del enlace.
+- Flujo rápido para crear y mantener tus links activos.
+- Base sólida para seguir creciendo con métricas, dominios y más integraciones.
+
+## Estado actual
+
+La versión actual ya permite crear, editar, listar y eliminar enlaces desde un panel web, conectado a un backend propio. (dev only)
 
 ## Stack
 
@@ -10,89 +41,34 @@ Convierte un link largo en uno corto y fácil de
 - Vue Router
 - Pinia
 - Tailwind CSS
-- Bun (gestor de paquetes recomendado)
+- Bun
 
-## Funcionalidades
+<!-- ## Ejecutar el proyecto en local
 
-- Inicio de sesión para administrador con clave privada.
-- Listado de links existentes.
-- Alta de nuevos links (nombre + URL destino).
-- Edición de links existentes.
-- Eliminación de links.
-- Generación y apertura del link corto (`/{nombre}`) desde el panel.
-
-## Requisitos
+### Requisitos
 
 - Bun instalado.
-- Backend del acortador corriendo (por defecto en `http://localhost:8787`).
+- Backend del acortador corriendo (por defecto en http://localhost:8787).
 
-## Variables de entorno
+### Variables de entorno
 
-El proyecto usa variables de entorno con prefijo `VITE_`.
-
-Archivo base: `.env.example`
-
-- `VITE_ADMIN_ACCESS_KEY`: clave para ingresar al panel admin.
-- `VITE_API_BASE_URL`: URL base del backend API.
-
-Ejemplo rápido:
+Usa el archivo .env.example como base:
 
 ```env
 VITE_ADMIN_ACCESS_KEY=tu-clave-privada
 VITE_API_BASE_URL=http://localhost:8787
 ```
 
-## Instalación
+### Comandos
 
 ```bash
 bun install
-```
-
-## Desarrollo
-
-```bash
 bun run dev
 ```
 
-La app queda disponible en la URL local que indique Vite.
-
-## Build de producción
+Build de producción:
 
 ```bash
 bun run build
-```
-
-## Vista previa del build
-
-```bash
 bun run preview
-```
-
-## API esperada por el frontend
-
-Base URL: `VITE_API_BASE_URL`
-
-- `GET /api/links`
-  - Retorna un arreglo de links.
-- `POST /api/links`
-  - Crea un link.
-  - Body JSON: `{ "name": "mi-link", "url": "https://sitio.com" }`
-- `PUT /api/links/:name`
-  - Actualiza un link existente.
-  - Si el backend no soporta `PUT`, el frontend hace fallback (`DELETE` + `POST`).
-- `DELETE /api/links/:name`
-  - Elimina un link.
-
-## Rutas del frontend
-
-- `/admin/login`: acceso administrador.
-- `/admin`: panel de gestión de links.
-
-## Estructura principal
-
-- `src/router/index.js`: rutas y guard de autenticación.
-- `src/stores/links.js`: estado y acciones de links.
-- `src/lib/linksApi.js`: cliente HTTP para backend.
-- `src/lib/adminAuth.js`: auth admin en `localStorage`.
-- `src/views/AdminLoginView.vue`: pantalla de login.
-- `src/views/AdminView.vue`: panel principal de administración.
+``` -->
