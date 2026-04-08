@@ -23,7 +23,7 @@ async function handleSubmit() {
 
     router.replace({ name: 'admin' })
   } catch (error) {
-    errorMessage.value = error.message || 'No se pudo iniciar sesion.'
+    errorMessage.value = error.message || 'Could not login.'
   } finally {
     isSubmitting.value = false
   }
@@ -83,7 +83,7 @@ async function handleSubmit() {
         </p>
 
         <Button class="w-full" type="submit" :disabled="isSubmitting">
-          {{ isSubmitting ? 'Ingresando...' : 'Entrar al panel' }}
+          {{ isSubmitting ? 'Login...' : 'Enter dashboard' }}
         </Button>
       </form>
     </section>

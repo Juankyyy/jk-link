@@ -23,11 +23,9 @@ const isLoading = computed(() => linksStore.isLoading)
 const isSaving = computed(() => linksStore.isSaving)
 const errorMessage = computed(() => linksStore.errorMessage)
 const modalTitle = computed(() =>
-  modalMode.value === 'create' ? 'Nuevo link acortado' : 'Editar link acortado',
+  modalMode.value === 'create' ? 'New short link' : 'Edit short link',
 )
-const submitLabel = computed(() =>
-  modalMode.value === 'create' ? 'Crear link' : 'Guardar cambios',
-)
+const submitLabel = computed(() => (modalMode.value === 'create' ? 'Create link' : 'Save changes'))
 
 onMounted(() => {
   linksStore.loadLinks()
@@ -85,7 +83,7 @@ async function submitModal() {
 }
 
 async function deleteItem(link) {
-  const shouldDelete = window.confirm(`Se eliminará el link "${link.name}". ¿Continuar?`)
+  const shouldDelete = window.confirm(`The link "${link.name}" will be deleted. Continue?`)
 
   if (!shouldDelete) {
     return
@@ -217,7 +215,7 @@ function toShortLink(name) {
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex justify-end gap-2">
-                    <Button size="sm" variant="outline" @click="openEditModal(link)">Editar</Button>
+                    <Button size="sm" variant="outline" @click="openEditModal(link)">Edit</Button>
                     <Button size="sm" variant="destructive" @click="deleteItem(link)"
                       >Delete</Button
                     >
@@ -250,7 +248,7 @@ function toShortLink(name) {
               v-model="form.name"
               type="text"
               class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring/30 transition focus:ring-2"
-              placeholder=""
+              placeholder="example"
               required
             />
           </div>
@@ -264,17 +262,17 @@ function toShortLink(name) {
               v-model="form.url"
               type="text"
               class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring/30 transition focus:ring-2"
-              placeholder="github.com o https://github.com"
+              placeholder="example.com"
               required
             />
           </div>
 
           <div class="flex justify-end gap-2 pt-1">
             <Button type="button" variant="outline" @click="closeModal" :disabled="isSaving"
-              >Cancelar</Button
+              >Cancel</Button
             >
             <Button type="submit" :disabled="isSaving">
-              {{ isSaving ? 'Guardando...' : submitLabel }}
+              {{ isSaving ? 'Saving...' : submitLabel }}
             </Button>
           </div>
         </form>
