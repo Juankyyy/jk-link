@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://jk-link-backend.jkx.workers.dev/api/$1" },
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
