@@ -1,7 +1,9 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
+import { RefreshCw } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
 import { Button } from '@/components/ui/button'
+import ThemeToggle from '@/components/ThemeToggle.vue'
 import { signOutAdmin } from '@/lib/adminAuth'
 import { useLinksStore } from '@/stores/links'
 
@@ -117,23 +119,21 @@ function toShortLink(name) {
 </script>
 
 <template>
-  <main class="min-h-screen bg-slate-50 px-4 py-6 sm:px-8">
+  <main class="min-h-screen px-4 py-6 sm:px-8">
     <section class="mx-auto w-full max-w-5xl">
       <header
-        class="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between"
+        class="animate-in fade-in slide-in-from-top-2 flex flex-col gap-4 rounded-xl border border-border bg-card p-5 text-card-foreground shadow-sm sm:flex-row sm:items-center sm:justify-between"
       >
         <div>
-          <h1 class="text-2xl font-semibold text-slate-900">Administración de links</h1>
-          <p class="mt-1 text-sm text-slate-600">
+          <h1 class="text-2xl font-semibold">Administración de links</h1>
+          <p class="mt-1 text-sm text-muted-foreground">
             Gestiona todos los links acortados desde este panel.
           </p>
         </div>
 
         <div class="flex flex-wrap gap-2">
-          <Button variant="outline" @click="linksStore.loadLinks" :disabled="isLoading || isSaving">
-            Recargar
-          </Button>
-          <Button @click="openCreateModal">Nuevo link</Button>
+          <ThemeToggle />
+          <Button class="transition-none!" @click="openCreateModal">Nuevo link</Button>
           <Button variant="destructive" @click="logout">Salir</Button>
         </div>
       </header>
@@ -145,41 +145,57 @@ function toShortLink(name) {
         {{ errorMessage }}
       </p>
 
-      <section class="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-        <div v-if="isLoading" class="px-4 py-8 text-center text-sm text-slate-600">
+      <section class="animate-in fade-in slide-in-from-bottom-2 mt-4 overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+        <div class="flex items-center justify-between border-b border-border px-4 py-3">
+          <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Lista de links
+          </p>
+
+          <Button
+            variant="outline"
+            size="icon"
+            @click="linksStore.loadLinks"
+            :disabled="isLoading || isSaving"
+          >
+            <RefreshCw class="size-4" :class="isLoading ? 'animate-spin' : ''" />
+            <span class="sr-only">Recargar links</span>
+          </Button>
+        </div>
+
+        <div v-if="isLoading" class="px-4 py-8 text-center text-sm text-muted-foreground">
           Cargando links...
         </div>
 
-        <div v-else-if="!links.length" class="px-4 py-8 text-center text-sm text-slate-600">
+        <div v-else-if="!links.length" class="px-4 py-8 text-center text-sm text-muted-foreground">
           Aún no hay links creados.
         </div>
 
         <div v-else class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-slate-200">
-            <thead class="bg-slate-100">
+          <table class="min-w-full divide-y divide-border">
+            <thead class="bg-muted/60">
               <tr>
                 <th
-                  class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-600"
+                  class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                 >
                   Nombre
                 </th>
                 <th
-                  class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-600"
+                  class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                 >
                   Destino
                 </th>
                 <th
-                  class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-slate-600"
+                  class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                 >
                   Acciones
                 </th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100 bg-white">
+            <tbody class="divide-y divide-border bg-card">
               <tr v-for="link in links" :key="link.name">
-                <td class="px-4 py-3 text-sm font-medium text-slate-900">
+                <td class="px-4 py-3 text-sm font-medium text-foreground">
                   <a
-                    class="underline decoration-slate-300 underline-offset-4 hover:text-slate-700"
+                    class="underline decoration-border underline-offset-4 hover:text-foreground/80"
                     :href="toShortLink(link.name)"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -187,9 +203,9 @@ function toShortLink(name) {
                     /{{ link.name }}
                   </a>
                 </td>
-                <td class="px-4 py-3 text-sm text-slate-700">
+                <td class="px-4 py-3 text-sm text-muted-foreground">
                   <a
-                    class="text-slate-700 underline decoration-slate-300 underline-offset-4 hover:text-slate-900"
+                    class="text-muted-foreground underline decoration-border underline-offset-4 hover:text-foreground"
                     :href="toExternalUrl(link.url)"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -214,36 +230,36 @@ function toShortLink(name) {
 
     <div
       v-if="isModalOpen"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 px-4"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm"
       @click.self="closeModal"
     >
-      <section class="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-5 shadow-xl">
-        <h2 class="text-lg font-semibold text-slate-900">{{ modalTitle }}</h2>
+      <section class="animate-in fade-in zoom-in-95 w-full max-w-lg rounded-xl border border-border bg-card p-5 text-card-foreground shadow-xl duration-300">
+        <h2 class="text-lg font-semibold">{{ modalTitle }}</h2>
 
         <form class="mt-4 space-y-4" @submit.prevent="submitModal">
           <div>
-            <label class="mb-1 block text-sm font-medium text-slate-700" for="link-name"
+            <label class="mb-1 block text-sm font-medium text-foreground" for="link-name"
               >Nombre del link</label
             >
             <input
               id="link-name"
               v-model="form.name"
               type="text"
-              class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none ring-slate-300 transition focus:border-slate-500 focus:ring-2"
+              class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring/30 transition focus:ring-2"
               placeholder="por-ejemplo-promocion"
               required
             />
           </div>
 
           <div>
-            <label class="mb-1 block text-sm font-medium text-slate-700" for="link-url"
+            <label class="mb-1 block text-sm font-medium text-foreground" for="link-url"
               >URL destino</label
             >
             <input
               id="link-url"
               v-model="form.url"
               type="text"
-              class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none ring-slate-300 transition focus:border-slate-500 focus:ring-2"
+              class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring/30 transition focus:ring-2"
               placeholder="github.com o https://github.com"
               required
             />

@@ -2,7 +2,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Button } from '@/components/ui/button'
-import { signInAdmin, USING_DEFAULT_ADMIN_KEY } from '@/lib/adminAuth'
+import ThemeToggle from '@/components/ThemeToggle.vue'
+import { signInAdmin } from '@/lib/adminAuth'
 
 const router = useRouter()
 const accessKey = ref('')
@@ -23,12 +24,16 @@ function handleSubmit() {
 </script>
 
 <template>
-  <main class="min-h-screen bg-linear-to-br from-slate-100 via-white to-slate-200 px-4 py-12">
+  <main class="min-h-screen px-4 py-12">
+    <div class="mx-auto flex w-full max-w-md justify-end pb-3">
+      <ThemeToggle />
+    </div>
+
     <section
-      class="mx-auto w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-lg"
+      class="mx-auto w-full max-w-md rounded-xl border border-border bg-card p-6 text-card-foreground shadow-lg"
     >
-      <h1 class="text-2xl font-semibold text-slate-900">Acceso administrador</h1>
-      <p class="mt-2 text-sm text-slate-600">
+      <h1 class="text-2xl font-semibold">Acceso administrador</h1>
+      <p class="mt-2 text-sm text-muted-foreground">
         Ingresa tu clave para acceder al panel de administración de links.
       </p>
 
@@ -41,7 +46,7 @@ function handleSubmit() {
 
       <form class="mt-6 space-y-4" @submit.prevent="handleSubmit">
         <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700" for="accessKey">
+          <label class="mb-1 block text-sm font-medium text-foreground" for="accessKey">
             Clave de acceso
           </label>
           <input
@@ -49,7 +54,7 @@ function handleSubmit() {
             v-model="accessKey"
             type="password"
             autocomplete="current-password"
-            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none ring-slate-300 transition focus:border-slate-500 focus:ring-2"
+            class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring/30 transition focus:ring-2"
             placeholder="Tu clave privada"
             required
           />
