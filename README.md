@@ -1,39 +1,39 @@
 # JK-Link
 
-Haz tus enlaces más cortos, limpios y fáciles de compartir.
+Make your links shorter, cleaner, and easier to share.
 
-JK-Link es una plataforma de acortamiento pensada para creadores, marcas, comunidades y cualquier persona que quiera compartir links con mejor presencia.
+JK-Link is a link-shortening platform designed for creators, brands, communities, and anyone who wants to share links with a more polished look.
 
-## Que ofrece la plataforma
+## What the platform offers
 
-- Links cortos memorables con nombres personalizados.
-- Gestión simple desde una interfaz web clara y rápida.
-- Edición y eliminación de enlaces en segundos.
-- Experiencia optimizada para organizar campañas, contenido y recursos.
+- Memorable short links with custom names.
+- Simple management via a clear and fast web interface.
+- Edit and delete links in seconds.
+- An optimized experience for organizing campaigns, content, and resources.
 
-## Para quien es
+## Who it’s for
 
-- Creadores de contenido que publican en redes todo el tiempo.
-- Comunidades que comparten recursos, docs o invitaciones.
-- Negocios que quieren enlaces consistentes para marketing.
-- Equipos que necesitan control sobre sus links en un solo lugar.
+- Content creators who post on social media all the time.
+- Communities that share resources, documents, or invitations.
+- Businesses that want consistent links for marketing.
+- Teams that need control over their links in one place.
 
-## Casos de uso
+## Use Cases
 
-- Reemplazar URLs largas por enlaces cortos y profesionales.
-- Crear enlaces para promociones temporales.
-- Actualizar destinos sin perder claridad en lo que compartes.
+- Replace long URLs with short, professional links.
+- Create links for temporary promotions.
+- Update destinations without losing clarity in what you share.
 
-## Por que JK-Link
+## Why JK-Link
 
-- Menos ruido visual en cada publicación.
-- Mejor recordación del enlace.
-- Flujo rápido para crear y mantener tus links activos.
-- Base sólida para seguir creciendo con métricas, dominios y más integraciones.
+- Less visual clutter in every post.
+- Better link recall.
+- Fast workflow for creating and maintaining your active links.
+- Solid foundation for continued growth with metrics, domains, and more integrations.
 
-## Estado actual
+## Current Status
 
-La versión actual ya permite crear, editar, listar y eliminar enlaces desde un panel web, conectado a un backend propio. (dev only)
+The current version already allows you to create, edit, list, and delete links from a web dashboard connected to a custom backend. (dev only)
 
 ## Stack
 
@@ -43,30 +43,30 @@ La versión actual ya permite crear, editar, listar y eliminar enlaces desde un 
 - Tailwind CSS
 - Bun
 
-<!-- ## Ejecutar el proyecto en local
+<!-- ## Run the project locally
 
-### Requisitos
+### Requirements
 
-- Bun instalado.
-- Backend del acortador corriendo (por defecto en http://localhost:8787).
+- Bun installed.
+- Link shortener backend running (default at http://localhost:8787).
 
-### Variables de entorno
+### Environment variables
 
-Usa el archivo .env.example como base:
+Use the .env.example file as a basis:
 
 ```env
-VITE_ADMIN_ACCESS_KEY=tu-clave-privada
+VITE_ADMIN_ACCESS_KEY=your-private-key
 VITE_API_BASE_URL=http://localhost:8787
 ```
 
-### Comandos
+### Commands
 
 ```bash
 bun install
 bun run dev
 ```
 
-Build de producción:
+Production build:
 
 ```bash
 bun run build
