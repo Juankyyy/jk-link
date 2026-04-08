@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
-import { RefreshCw } from 'lucide-vue-next'
+import { LogOut, Plus, RefreshCw } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import ThemeToggle from '@/components/ThemeToggle.vue'
@@ -23,11 +23,9 @@ const isLoading = computed(() => linksStore.isLoading)
 const isSaving = computed(() => linksStore.isSaving)
 const errorMessage = computed(() => linksStore.errorMessage)
 const modalTitle = computed(() =>
-  modalMode.value === 'create' ? 'Nuevo link acortado' : 'Editar link acortado',
+  modalMode.value === 'create' ? 'New short link' : 'Edit short link',
 )
-const submitLabel = computed(() =>
-  modalMode.value === 'create' ? 'Crear link' : 'Guardar cambios',
-)
+const submitLabel = computed(() => (modalMode.value === 'create' ? 'Create link' : 'Save changes'))
 
 onMounted(() => {
   linksStore.loadLinks()
@@ -85,7 +83,7 @@ async function submitModal() {
 }
 
 async function deleteItem(link) {
-  const shouldDelete = window.confirm(`Se eliminará el link "${link.name}". ¿Continuar?`)
+  const shouldDelete = window.confirm(`The link "${link.name}" will be deleted. Continue?`)
 
   if (!shouldDelete) {
     return
@@ -119,7 +117,7 @@ function toShortLink(name) {
 </script>
 
 <template>
-  <main class="min-h-screen px-4 py-6 sm:px-8">
+  <main class="app-page-bg min-h-screen px-4 py-6 sm:px-8">
     <section class="mx-auto w-full max-w-5xl">
       <header
         class="animate-in fade-in slide-in-from-top-2 flex flex-col gap-4 rounded-xl border border-border bg-card p-5 text-card-foreground shadow-sm sm:flex-row sm:items-center sm:justify-between"
@@ -133,8 +131,15 @@ function toShortLink(name) {
 
         <div class="flex flex-wrap gap-2">
           <ThemeToggle />
-          <Button class="transition-none!" @click="openCreateModal">New Link</Button>
-          <Button variant="destructive" @click="logout">Logout</Button>
+          <Button
+            variant="destructive"
+            size="icon"
+            class="relative overflow-hidden transition-transform duration-150 hover:scale-105 active:scale-95"
+            @click="logout"
+          >
+            <LogOut class="size-4" />
+            <span class="sr-only">Logout</span>
+          </Button>
         </div>
       </header>
 
@@ -153,15 +158,28 @@ function toShortLink(name) {
             List of links
           </p>
 
-          <Button
-            variant="outline"
-            size="icon"
-            @click="linksStore.loadLinks"
-            :disabled="isLoading || isSaving"
-          >
-            <RefreshCw class="size-4" :class="isLoading ? 'animate-spin' : ''" />
-            <span class="sr-only">Reload Links</span>
-          </Button>
+          <div class="flex items-end gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              class="relative overflow-hidden transition-transform duration-150 hover:scale-105 active:scale-95"
+              @click="linksStore.loadLinks"
+              :disabled="isLoading || isSaving"
+            >
+              <RefreshCw class="size-4" />
+              <span class="sr-only">Reload Links</span>
+            </Button>
+
+            <Button
+              variant="outline"
+              size="icon"
+              class="relative overflow-hidden border-emerald-500 bg-emerald-500 text-white transition-transform duration-150 hover:scale-105 hover:border-emerald-500! hover:bg-emerald-500! active:scale-95"
+              @click="openCreateModal"
+            >
+              <Plus class="size-5 text-white" />
+              <span class="sr-only">New Link</span>
+            </Button>
+          </div>
         </div>
 
         <div v-if="isLoading" class="px-4 py-8 text-center text-sm text-muted-foreground">
@@ -217,7 +235,7 @@ function toShortLink(name) {
                 </td>
                 <td class="px-4 py-3">
                   <div class="flex justify-end gap-2">
-                    <Button size="sm" variant="outline" @click="openEditModal(link)">Editar</Button>
+                    <Button size="sm" variant="outline" @click="openEditModal(link)">Edit</Button>
                     <Button size="sm" variant="destructive" @click="deleteItem(link)"
                       >Delete</Button
                     >
@@ -250,7 +268,7 @@ function toShortLink(name) {
               v-model="form.name"
               type="text"
               class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring/30 transition focus:ring-2"
-              placeholder=""
+              placeholder="example"
               required
             />
           </div>
@@ -264,17 +282,17 @@ function toShortLink(name) {
               v-model="form.url"
               type="text"
               class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring/30 transition focus:ring-2"
-              placeholder="github.com o https://github.com"
+              placeholder="example.com"
               required
             />
           </div>
 
           <div class="flex justify-end gap-2 pt-1">
             <Button type="button" variant="outline" @click="closeModal" :disabled="isSaving"
-              >Cancelar</Button
+              >Cancel</Button
             >
             <Button type="submit" :disabled="isSaving">
-              {{ isSaving ? 'Guardando...' : submitLabel }}
+              {{ isSaving ? 'Saving...' : submitLabel }}
             </Button>
           </div>
         </form>

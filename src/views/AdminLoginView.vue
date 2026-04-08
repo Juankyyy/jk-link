@@ -23,7 +23,7 @@ async function handleSubmit() {
 
     router.replace({ name: 'admin' })
   } catch (error) {
-    errorMessage.value = error.message || 'No se pudo iniciar sesion.'
+    errorMessage.value = error.message || 'Could not login.'
   } finally {
     isSubmitting.value = false
   }
@@ -31,7 +31,7 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <main class="min-h-screen px-4 py-12">
+  <main class="app-page-bg min-h-screen px-4 py-12">
     <div class="mx-auto flex w-full max-w-md justify-end pb-3">
       <ThemeToggle />
     </div>
@@ -83,7 +83,7 @@ async function handleSubmit() {
         </p>
 
         <Button class="w-full" type="submit" :disabled="isSubmitting">
-          {{ isSubmitting ? 'Ingresando...' : 'Entrar al panel' }}
+          {{ isSubmitting ? 'Login...' : 'Enter dashboard' }}
         </Button>
       </form>
     </section>

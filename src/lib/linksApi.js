@@ -41,7 +41,7 @@ async function apiRequest(path, options = {}) {
     const message =
       typeof payload === 'string'
         ? payload
-        : payload?.message || 'No se pudo completar la solicitud.'
+        : payload?.message || 'Failed to complete the request'
 
     const error = new Error(message)
     error.status = response.status
@@ -76,7 +76,7 @@ export async function resolveLinkDestination(name) {
   const normalizedName = String(name || '').trim()
 
   if (!normalizedName) {
-    const error = new Error('Debes indicar un nombre de link válido.')
+    const error = new Error('You must enter a valid link name')
     error.status = 400
     throw error
   }
@@ -85,7 +85,7 @@ export async function resolveLinkDestination(name) {
   const match = links.find((link) => link.name === normalizedName)
 
   if (!match || !match.url) {
-    const error = new Error('No se encontró el link solicitado.')
+    const error = new Error('The link you requested is invalid')
     error.status = 404
     throw error
   }
