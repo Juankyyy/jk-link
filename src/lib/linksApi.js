@@ -54,7 +54,10 @@ async function apiRequest(path, options = {}) {
 }
 
 export async function fetchLinks() {
-  const links = await apiRequest('/api/links', { method: 'GET' })
+  const links = await apiRequest(`/api/links?t=${Date.now()}`, {
+    method: 'GET',
+    cache: 'no-store',
+  })
 
   if (!Array.isArray(links)) {
     return []
