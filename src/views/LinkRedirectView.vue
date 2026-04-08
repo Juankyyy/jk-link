@@ -17,6 +17,13 @@ onMounted(async () => {
     return
   }
 
+  if (import.meta.env.PROD) {
+    window.setTimeout(() => {
+      window.location.replace(`/go/${encodeURIComponent(slug)}`)
+    }, 250)
+    return
+  }
+
   try {
     const destinationUrl = await resolveLinkDestination(slug)
     window.location.replace(destinationUrl)
