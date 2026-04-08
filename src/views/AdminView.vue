@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
-import { RefreshCw } from 'lucide-vue-next'
+import { LogOut, Plus, RefreshCw } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import ThemeToggle from '@/components/ThemeToggle.vue'
@@ -117,7 +117,7 @@ function toShortLink(name) {
 </script>
 
 <template>
-  <main class="min-h-screen px-4 py-6 sm:px-8">
+  <main class="app-page-bg min-h-screen px-4 py-6 sm:px-8">
     <section class="mx-auto w-full max-w-5xl">
       <header
         class="animate-in fade-in slide-in-from-top-2 flex flex-col gap-4 rounded-xl border border-border bg-card p-5 text-card-foreground shadow-sm sm:flex-row sm:items-center sm:justify-between"
@@ -131,8 +131,15 @@ function toShortLink(name) {
 
         <div class="flex flex-wrap gap-2">
           <ThemeToggle />
-          <Button class="transition-none!" @click="openCreateModal">New Link</Button>
-          <Button variant="destructive" @click="logout">Logout</Button>
+          <Button
+            variant="destructive"
+            size="icon"
+            class="relative overflow-hidden transition-transform duration-150 hover:scale-105 active:scale-95"
+            @click="logout"
+          >
+            <LogOut class="size-4" />
+            <span class="sr-only">Logout</span>
+          </Button>
         </div>
       </header>
 
@@ -151,15 +158,28 @@ function toShortLink(name) {
             List of links
           </p>
 
-          <Button
-            variant="outline"
-            size="icon"
-            @click="linksStore.loadLinks"
-            :disabled="isLoading || isSaving"
-          >
-            <RefreshCw class="size-4" :class="isLoading ? 'animate-spin' : ''" />
-            <span class="sr-only">Reload Links</span>
-          </Button>
+          <div class="flex items-end gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              class="relative overflow-hidden transition-transform duration-150 hover:scale-105 active:scale-95"
+              @click="linksStore.loadLinks"
+              :disabled="isLoading || isSaving"
+            >
+              <RefreshCw class="size-4" />
+              <span class="sr-only">Reload Links</span>
+            </Button>
+
+            <Button
+              variant="outline"
+              size="icon"
+              class="relative overflow-hidden border-emerald-500 bg-emerald-500 text-white transition-transform duration-150 hover:scale-105 hover:border-emerald-500! hover:bg-emerald-500! active:scale-95"
+              @click="openCreateModal"
+            >
+              <Plus class="size-5 text-white" />
+              <span class="sr-only">New Link</span>
+            </Button>
+          </div>
         </div>
 
         <div v-if="isLoading" class="px-4 py-8 text-center text-sm text-muted-foreground">

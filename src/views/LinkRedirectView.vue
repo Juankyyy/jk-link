@@ -55,7 +55,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="min-h-screen px-4 py-6">
+  <main class="app-page-bg min-h-screen px-4 py-6">
     <div class="mx-auto flex w-full max-w-md items-center justify-between pb-3">
       <p class="text-xl font-semibold tracking-wide text-foreground">JK Link</p>
 

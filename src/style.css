@@ -137,3 +137,57 @@
         cursor: pointer;
     }
 }
+
+@layer utilities {
+    .app-page-bg {
+        background-color: var(--background);
+        background-image:
+            radial-gradient(1560px 980px at -18% -28%, color-mix(in oklab, #3b82f6 54%, transparent) 0%, transparent 58%),
+            radial-gradient(1320px 860px at 114% -14%, color-mix(in oklab, #0ea5e9 46%, transparent) 0%, transparent 62%),
+            radial-gradient(1240px 760px at 50% 122%, color-mix(in oklab, #1d4ed8 34%, transparent) 0%, transparent 68%),
+            linear-gradient(to bottom right, color-mix(in oklab, var(--background) 72%, #dbeafe 28%), color-mix(in oklab, var(--background) 66%, #93c5fd 34%)),
+            linear-gradient(color-mix(in oklab, #60a5fa 32%, transparent) 1.3px, transparent 1.3px),
+            linear-gradient(90deg, color-mix(in oklab, #60a5fa 28%, transparent) 1.3px, transparent 1.3px),
+            radial-gradient(circle, color-mix(in oklab, #2563eb 34%, transparent) 1.2px, transparent 1.2px),
+            radial-gradient(circle at 1px 1px, color-mix(in oklab, #1d4ed8 30%, transparent) 1.1px, transparent 1.2px),
+            repeating-linear-gradient(135deg, color-mix(in oklab, #1d4ed8 14%, transparent) 0 2px, transparent 2px 12px),
+            repeating-linear-gradient(45deg, color-mix(in oklab, #0f4fcf 11%, transparent) 0 1.5px, transparent 1.5px 11px);
+        background-size:
+            auto,
+            auto,
+            auto,
+            auto,
+            28px 28px,
+            28px 28px,
+            18px 18px,
+            22px 22px,
+            20px 20px,
+            18px 18px;
+        background-position:
+            center,
+            center,
+            center,
+            center,
+            0 0,
+            0 0,
+            9px 9px,
+            4px 4px,
+            0 0,
+            0 0;
+        background-attachment: fixed;
+    }
+
+    .dark .app-page-bg {
+        background-image:
+            radial-gradient(1560px 980px at -15% -22%, color-mix(in oklab, #2563eb 56%, transparent) 0%, transparent 54%),
+            radial-gradient(1320px 860px at 116% -14%, color-mix(in oklab, #0ea5e9 44%, transparent) 0%, transparent 60%),
+            radial-gradient(1240px 760px at 50% 122%, color-mix(in oklab, #1d4ed8 36%, transparent) 0%, transparent 68%),
+            linear-gradient(to bottom right, color-mix(in oklab, var(--background) 78%, #0f172a 22%), color-mix(in oklab, var(--background) 58%, #0b1224 42%)),
+            linear-gradient(color-mix(in oklab, #93c5fd 34%, transparent) 1.3px, transparent 1.3px),
+            linear-gradient(90deg, color-mix(in oklab, #93c5fd 30%, transparent) 1.3px, transparent 1.3px),
+            radial-gradient(circle, color-mix(in oklab, #7dd3fc 36%, transparent) 1.2px, transparent 1.2px),
+            radial-gradient(circle at 1px 1px, color-mix(in oklab, #67e8f9 34%, transparent) 1.1px, transparent 1.2px),
+            repeating-linear-gradient(135deg, color-mix(in oklab, #38bdf8 16%, transparent) 0 2px, transparent 2px 12px),
+            repeating-linear-gradient(45deg, color-mix(in oklab, #22d3ee 12%, transparent) 0 1.5px, transparent 1.5px 11px);
+    }
+}

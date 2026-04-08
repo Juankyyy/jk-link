@@ -31,7 +31,7 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <main class="min-h-screen px-4 py-12">
+  <main class="app-page-bg min-h-screen px-4 py-12">
     <div class="mx-auto flex w-full max-w-md justify-end pb-3">
       <ThemeToggle />
     </div>
