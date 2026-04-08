@@ -1,7 +1,6 @@
-const RAW_API_BASE_URL =
-  (import.meta.env.PROD
-    ? import.meta.env.VITE_API_BASE_URL_PROD
-    : import.meta.env.VITE_API_BASE_URL_DEV) || 'http://localhost:8787'
+const RAW_API_BASE_URL = import.meta.env.PROD
+  ? ''
+  : import.meta.env.VITE_API_BASE_URL_DEV || 'http://localhost:8787'
 
 const API_BASE_URL = String(RAW_API_BASE_URL).replace(/\/+$/, '')
 
@@ -63,10 +62,14 @@ export async function fetchLinks() {
     return []
   }
 
-  return links.map((link) => ({
-    name: link.name,
-    url: normalizeDestinationUrl(link.url || link.value || ''),
-  }))
+  return links
+    .map((link) => ({
+      name: String(link.name || '').trim(),
+      url: normalizeDestinationUrl(
+        link.url || link.value || link.destination || link.target || link.originalUrl || '',
+      ),
+    }))
+    .filter((link) => link.name)
 }
 
 export async function resolveLinkDestination(name) {

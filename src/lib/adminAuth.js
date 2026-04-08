@@ -1,7 +1,6 @@
-const RAW_API_BASE_URL =
-  (import.meta.env.PROD
-    ? import.meta.env.VITE_API_BASE_URL_PROD
-    : import.meta.env.VITE_API_BASE_URL_DEV) || 'http://localhost:8787'
+const RAW_API_BASE_URL = import.meta.env.PROD
+  ? ''
+  : import.meta.env.VITE_API_BASE_URL_DEV || 'http://localhost:8787'
 
 const API_BASE_URL = String(RAW_API_BASE_URL).replace(/\/+$/, '')
 
