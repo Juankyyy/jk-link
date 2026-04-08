@@ -23,7 +23,7 @@ function handleSubmit() {
 </script>
 
 <template>
-  <main class="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-200 px-4 py-12">
+  <main class="min-h-screen bg-linear-to-br from-slate-100 via-white to-slate-200 px-4 py-12">
     <section
       class="mx-auto w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-lg"
     >

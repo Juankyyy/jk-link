@@ -1,5 +1,19 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8787'
 
+function normalizeDestinationUrl(url) {
+  const trimmedUrl = String(url || '').trim()
+
+  if (!trimmedUrl) {
+    return ''
+  }
+
+  if (/^https?:\/\//i.test(trimmedUrl)) {
+    return trimmedUrl
+  }
+
+  return `https://${trimmedUrl}`
+}
+
 async function apiRequest(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
@@ -42,14 +56,37 @@ export async function fetchLinks() {
 
   return links.map((link) => ({
     name: link.name,
-    url: link.url || link.value || '',
+    url: normalizeDestinationUrl(link.url || link.value || ''),
   }))
 }
 
+export async function resolveLinkDestination(name) {
+  const normalizedName = String(name || '').trim()
+
+  if (!normalizedName) {
+    const error = new Error('Debes indicar un nombre de link válido.')
+    error.status = 400
+    throw error
+  }
+
+  const links = await fetchLinks()
+  const match = links.find((link) => link.name === normalizedName)
+
+  if (!match || !match.url) {
+    const error = new Error('No se encontró el link solicitado.')
+    error.status = 404
+    throw error
+  }
+
+  return match.url
+}
+
 export async function createLink({ name, url }) {
+  const normalizedUrl = normalizeDestinationUrl(url)
+
   await apiRequest('/api/links', {
     method: 'POST',
-    body: JSON.stringify({ name, url }),
+    body: JSON.stringify({ name, url: normalizedUrl }),
   })
 }
 
@@ -60,10 +97,12 @@ export async function deleteLink(name) {
 }
 
 export async function updateLink({ currentName, name, url }) {
+  const normalizedUrl = normalizeDestinationUrl(url)
+
   try {
     await apiRequest(`/api/links/${encodeURIComponent(currentName)}`, {
       method: 'PUT',
-      body: JSON.stringify({ name, url }),
+      body: JSON.stringify({ name, url: normalizedUrl }),
     })
     return
   } catch (error) {
@@ -73,5 +112,5 @@ export async function updateLink({ currentName, name, url }) {
   }
 
   await deleteLink(currentName)
-  await createLink({ name, url })
+  await createLink({ name, url: normalizedUrl })
 }

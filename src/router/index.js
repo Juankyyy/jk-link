@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AdminLoginView from '@/views/AdminLoginView.vue'
 import AdminView from '@/views/AdminView.vue'
+import LinkRedirectView from '@/views/LinkRedirectView.vue'
 import { isAdminAuthenticated } from '@/lib/adminAuth'
 
 const router = createRouter({
@@ -21,6 +22,11 @@ const router = createRouter({
       name: 'admin',
       component: AdminView,
       meta: { requiresAdmin: true },
+    },
+    {
+      path: '/:slug',
+      name: 'link-redirect',
+      component: LinkRedirectView,
     },
     {
       path: '/:pathMatch(.*)*',

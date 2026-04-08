@@ -104,6 +104,16 @@ function toExternalUrl(url) {
 
   return `https://${url}`
 }
+
+function toShortLink(name) {
+  const normalizedName = String(name || '').trim()
+
+  if (!normalizedName || typeof window === 'undefined') {
+    return '#'
+  }
+
+  return `${window.location.origin}/${encodeURIComponent(normalizedName)}`
+}
 </script>
 
 <template>
@@ -167,7 +177,16 @@ function toExternalUrl(url) {
             </thead>
             <tbody class="divide-y divide-slate-100 bg-white">
               <tr v-for="link in links" :key="link.name">
-                <td class="px-4 py-3 text-sm font-medium text-slate-900">/{{ link.name }}</td>
+                <td class="px-4 py-3 text-sm font-medium text-slate-900">
+                  <a
+                    class="underline decoration-slate-300 underline-offset-4 hover:text-slate-700"
+                    :href="toShortLink(link.name)"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    /{{ link.name }}
+                  </a>
+                </td>
                 <td class="px-4 py-3 text-sm text-slate-700">
                   <a
                     class="text-slate-700 underline decoration-slate-300 underline-offset-4 hover:text-slate-900"
@@ -223,9 +242,9 @@ function toExternalUrl(url) {
             <input
               id="link-url"
               v-model="form.url"
-              type="url"
+              type="text"
               class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none ring-slate-300 transition focus:border-slate-500 focus:ring-2"
-              placeholder="https://ejemplo.com"
+              placeholder="github.com o https://github.com"
               required
             />
           </div>
