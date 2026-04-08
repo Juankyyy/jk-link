@@ -40,3 +40,4 @@ __screenshots__/
 .vscode/extensions.json
 AGENTS.md
 .env.example
+.env
