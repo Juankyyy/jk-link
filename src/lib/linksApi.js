@@ -62,10 +62,12 @@ export async function fetchLinks() {
     return []
   }
 
-  return links.map((link) => ({
-    name: link.name,
-    url: normalizeDestinationUrl(link.url || link.value || ''),
-  }))
+  return links
+    .map((link) => ({
+      name: String(link.name || '').trim(),
+      url: normalizeDestinationUrl(link.url || link.value || ''),
+    }))
+    .filter((link) => link.name && link.url)
 }
 
 export async function resolveLinkDestination(name) {

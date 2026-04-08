@@ -58,11 +58,14 @@ export const useLinksStore = defineStore('links', {
     async removeLink(name) {
       this.isSaving = true
       this.clearError()
+      const previousLinks = [...this.links]
+      this.links = this.links.filter((link) => link.name !== name)
 
       try {
         await deleteLink(name)
         await this.loadLinks()
       } catch (error) {
+        this.links = previousLinks
         this.errorMessage = error.message
       } finally {
         this.isSaving = false
