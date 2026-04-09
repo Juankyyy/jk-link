@@ -11,8 +11,10 @@ const router = useRouter()
 const linksStore = useLinksStore()
 
 const isModalOpen = ref(false)
+const isDeleteModalOpen = ref(false)
 const modalMode = ref('create')
 const originalName = ref('')
+const linkToDelete = ref(null)
 const form = reactive({
   name: '',
   url: '',
@@ -82,14 +84,23 @@ async function submitModal() {
   }
 }
 
-async function deleteItem(link) {
-  const shouldDelete = window.confirm(`The link "${link.name}" will be deleted. Continue?`)
+function openDeleteModal(link) {
+  linkToDelete.value = link
+  isDeleteModalOpen.value = true
+}
 
-  if (!shouldDelete) {
+function closeDeleteModal() {
+  isDeleteModalOpen.value = false
+  linkToDelete.value = null
+}
+
+async function confirmDelete() {
+  if (!linkToDelete.value?.name) {
     return
   }
 
-  await linksStore.removeLink(link.name)
+  await linksStore.removeLink(linkToDelete.value.name)
+  closeDeleteModal()
 }
 
 async function logout() {
@@ -236,7 +247,7 @@ function toShortLink(name) {
                 <td class="px-4 py-3">
                   <div class="flex justify-end gap-2">
                     <Button size="sm" variant="outline" @click="openEditModal(link)">Edit</Button>
-                    <Button size="sm" variant="destructive" @click="deleteItem(link)"
+                    <Button size="sm" variant="destructive" @click="openDeleteModal(link)"
                       >Delete</Button
                     >
                   </div>
@@ -296,6 +307,28 @@ function toShortLink(name) {
             </Button>
           </div>
         </form>
+      </section>
+    </div>
+
+    <div
+      v-if="isDeleteModalOpen"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm"
+      @click.self="closeDeleteModal"
+    >
+      <section
+        class="animate-in fade-in zoom-in-95 w-full max-w-md rounded-xl border border-border bg-card p-5 text-card-foreground shadow-xl duration-300"
+      >
+        <h2 class="text-lg font-semibold">Delete link</h2>
+        <p class="mt-2 text-sm text-muted-foreground">
+          Are you sure you want to delete
+          <span class="font-semibold text-foreground">/{{ linkToDelete?.name }}</span
+          >?
+        </p>
+
+        <div class="mt-5 flex justify-end gap-2">
+          <Button type="button" variant="outline" @click="closeDeleteModal">Cancel</Button>
+          <Button type="button" variant="destructive" @click="confirmDelete">Delete</Button>
+        </div>
       </section>
     </div>
   </main>
