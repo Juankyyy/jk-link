@@ -140,16 +140,16 @@ function toShortLink(name) {
           </p>
         </div>
 
-        <div class="flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2 items-center">
           <ThemeToggle />
           <Button
             variant="destructive"
-            size="icon"
+            size="sm"
             class="relative overflow-hidden transition-transform duration-150 hover:scale-105 active:scale-95"
             @click="logout"
           >
             <LogOut class="size-4" />
-            <span class="sr-only">Logout</span>
+            <span>Logout</span>
           </Button>
         </div>
       </header>
@@ -184,7 +184,7 @@ function toShortLink(name) {
             <Button
               variant="outline"
               size="sm"
-              class="relative overflow-hidden border-emerald-500! bg-emerald-500! text-white! dark:border-emerald-500! dark:bg-emerald-500! dark:text-white! transition-transform duration-150 hover:scale-105 hover:border-emerald-500! hover:bg-emerald-500! active:scale-95"
+              class="relative overflow-hidden bg-emerald-500! text-white! dark:bg-emerald-500! dark:text-white! transition-transform duration-150 hover:scale-105 hover:border-emerald-500! hover:bg-emerald-500! active:scale-95"
               @click="openCreateModal"
             >
               <Plus class="size-5 text-white" />
