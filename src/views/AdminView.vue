@@ -120,7 +120,7 @@ function toShortLink(name) {
   <main class="app-page-bg min-h-screen px-4 py-6 sm:px-8">
     <section class="mx-auto w-full max-w-5xl">
       <header
-        class="animate-in fade-in slide-in-from-top-2 flex flex-col gap-4 rounded-xl border border-border bg-card p-5 text-card-foreground shadow-sm sm:flex-row sm:items-center sm:justify-between"
+        class="animate-in fade-in slide-in-from-top-2 flex flex-col gap-4 rounded-xl border border-border bg-card p-5 px-4 text-card-foreground shadow-sm sm:flex-row sm:items-center sm:justify-between"
       >
         <div>
           <h1 class="text-2xl font-semibold">Link Management</h1>
@@ -161,23 +161,23 @@ function toShortLink(name) {
           <div class="flex items-end gap-2">
             <Button
               variant="outline"
-              size="icon"
+              size="sm"
               class="relative overflow-hidden transition-transform duration-150 hover:scale-105 active:scale-95"
               @click="linksStore.loadLinks"
               :disabled="isLoading || isSaving"
             >
               <RefreshCw class="size-4" />
-              <span class="sr-only">Reload Links</span>
+              <span>Refresh</span>
             </Button>
 
             <Button
               variant="outline"
-              size="icon"
-              class="relative overflow-hidden border-emerald-500 bg-emerald-500 text-white transition-transform duration-150 hover:scale-105 hover:border-emerald-500! hover:bg-emerald-500! active:scale-95"
+              size="sm"
+              class="relative overflow-hidden border-emerald-500! bg-emerald-500! text-white! dark:border-emerald-500! dark:bg-emerald-500! dark:text-white! transition-transform duration-150 hover:scale-105 hover:border-emerald-500! hover:bg-emerald-500! active:scale-95"
               @click="openCreateModal"
             >
               <Plus class="size-5 text-white" />
-              <span class="sr-only">New Link</span>
+              <span>New Link</span>
             </Button>
           </div>
         </div>
